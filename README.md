@@ -52,7 +52,7 @@ The server forwards a user query and only the selected local context to the conf
 - Create and complete tasks/reminders, view schedules, manage quotation drafts, record when a quote was sent, schedule and complete customer follow-ups, and record accepted/declined/waiting outcomes. Quotation files open a print dialog so they can be printed or saved as PDF; the app does not email them.
 - After a meeting ends, MeetingMind prompts for the outcome. Save meeting notes, create a follow-up task, and/or prepare a quotation draft from the meeting check-in.
 - Save, review, and delete user-approved memories; export/import a JSON backup or delete local/cloud app data.
-- Push-to-talk speech recognition and spoken replies when the browser/device provides those APIs and permissions.
+- Push-to-talk speech recognition and spoken replies when the browser/device provides those APIs and permissions. Voice Studio offers English plus all 22 languages listed in India's Eighth Schedule, including Hindi, Gujarati, Marathi, Bengali, Tamil, Telugu, Punjabi, and others. Recognition and text-to-speech still depend on the browser's speech service and voices installed on that device; the app reports unsupported languages and missing voices instead of pretending they work. Local schedule/task replies are available in Hindi, Gujarati, and Marathi; optional live AI can reply in the selected language for broader conversation.
 - Voice Studio previews the actual installed system voice it maps to each style, lets you pick a device voice directly, and reports when a requested male/female voice is unavailable. Speech voices differ by browser and operating system.
 - Local command handling for schedule lookups, meeting context, reminders, contacts, voice/language preferences, quotes, and payment summaries.
 - Optional live model answers through the server-side AI endpoint.
@@ -61,6 +61,7 @@ The server forwards a user query and only the selected local context to the conf
 
 - Wake-word listening is not implemented. The app never continuously streams microphone audio and never starts meeting recording from a voice command.
 - Meeting audio recording requires microphone permission and a supported browser. Audio is downloaded to the device when you stop recording. Live transcription uses the browser's speech recognition service, which may process speech outside the device; use manual meeting notes if that is not acceptable. A browser without speech recognition can still record audio, but will not create a live transcript.
+- Voice and transcription coverage is not guaranteed uniformly across Android, iOS, desktop browsers, or language packs. Test the selected language with the preview and microphone controls on the target device; some providers reject locale tags even when they appear in the list.
 - Calendar events are exported as `.ics`; there is no direct Google/Outlook calendar OAuth connection yet.
 - Notifications depend on browser permission and platform behavior. A locally scheduled timer is not a guaranteed background reminder if the browser or device stops the app.
 - Calls open the device's phone handler after confirmation. WhatsApp/email sending, payments, full meeting recording/transcription, and native Android/iOS background services are not connected.

@@ -10,7 +10,7 @@ const HOST = process.env.HOST || '127.0.0.1';
 const PROVIDER = String(process.env.AI_PROVIDER || 'openai').toLowerCase();
 const MODEL = process.env.AI_MODEL || (PROVIDER === 'ollama' ? 'qwen2.5:7b' : 'gpt-4.1-mini');
 const MIME = {'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.json':'application/manifest+json; charset=utf-8','.png':'image/png','.svg':'image/svg+xml','.ico':'image/x-icon','.webmanifest':'application/manifest+json'};
-const INSTRUCTIONS = 'You are MeetingMind, a friendly and professional personal secretary. Answer using only the user-provided context. Be concise, state when information is missing, and do not claim to perform actions. The app handles local reminders and drafts separately. Never claim to send messages, make payments, delete data, or start recording.';
+const INSTRUCTIONS = 'You are MeetingMind, a friendly and professional personal secretary. Answer using only the user-provided context. Reply in the language selected in the supplied context.language value; honor the user’s requested language or code-switching when clear. Be concise, state when information is missing, and do not claim to perform actions. The app handles local reminders and drafts separately. Never claim to send messages, make payments, delete data, or start recording.';
 
 async function readBody(req, limit=120_000) {
   let data=''; for await (const part of req) { data+=part; if(data.length>limit) throw new Error('Request is too large'); }
