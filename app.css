@@ -60,3 +60,42 @@ aside,.topbar{background:rgba(8,6,12,.8)!important;border-color:rgba(221,141,218
 .select-control,.data-toolbar input,.data-toolbar select,.form-field input,.form-field textarea,.form-field select{background:rgba(9,7,13,.72)!important;border-color:rgba(208,116,196,.24)!important}.select-control:focus,.data-toolbar input:focus,.form-field input:focus,.form-field textarea:focus{border-color:rgba(243,101,197,.7)!important;box-shadow:0 0 0 3px rgba(225,55,177,.12)!important}
 :focus-visible{outline-color:rgba(255,143,195,.85)!important}.voice-transcript{border-color:rgba(210,105,195,.26)!important;color:#efcce8!important}.capture-panel{background:linear-gradient(120deg,rgba(87,37,94,.7),rgba(14,10,18,.86))!important;border-color:rgba(243,103,190,.35)!important}
 @media(prefers-reduced-motion:reduce){body{animation:none}}
+
+/* Compact mobile navigation and an animation control that respects user choice. */
+.mobile-nav{display:none}
+.view.active{animation:view-enter .36s cubic-bezier(.2,.75,.25,1) both}
+.view.active .section-card,.view.active .setting-card,.view.active .assistant-card,.view.active .orb-card{animation:fade-rise .42s cubic-bezier(.2,.75,.25,1) both}
+.data-row,.schedule-row,.memory-row{animation:fade-rise .32s ease both}
+.primary,.send,.talk-btn,.row-action,.icon-btn,.mobile-nav button{transition:transform .2s ease,box-shadow .24s ease,background .24s ease,border-color .24s ease}
+.primary:active,.send:active,.talk-btn:active,.row-action:active,.mobile-nav button:active{transform:scale(.96)}
+.app-dialog[open]{animation:dialog-enter .26s cubic-bezier(.2,.75,.25,1) both}
+@keyframes dialog-enter{from{opacity:0;transform:translateY(12px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(max-width:680px){
+  .app{display:block;min-height:100vh;padding-bottom:82px}
+  aside{display:none!important}
+  main{padding-bottom:12px}
+  .content{padding:22px 14px 30px}
+  .grid{grid-template-columns:1fr;gap:12px}
+  .assistant-card{min-height:410px}
+  .orb-card{min-height:auto;display:grid;grid-template-columns:1fr auto;gap:7px 12px;align-items:center;padding:13px 15px}
+  .orb-title{width:auto;grid-column:1}.orb-wrap,.orb-caption p,.orb-caption .orb-wave,.voice-foot{display:none}
+  .orb-caption{grid-column:1}.orb-card .talk-btn{grid-column:2;grid-row:1/3;margin:0;white-space:nowrap}
+  .lower{grid-template-columns:1fr}.lower .small-card:nth-child(3){display:none}
+  .mobile-nav{position:fixed;z-index:500;left:12px;right:12px;bottom:max(9px,env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:center;padding:7px 8px;border:1px solid rgba(228,202,238,.15);border-radius:20px;background:rgba(12,9,17,.94);backdrop-filter:blur(24px) saturate(145%);box-shadow:0 14px 44px rgba(0,0,0,.38),inset 0 1px 0 rgba(255,255,255,.06)}
+  .mobile-nav>button{min-height:48px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:3px;border:0;border-radius:14px;background:transparent;color:#aa9bae;font-size:9px}
+  .mobile-nav>button svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7}
+  .mobile-nav>button.active{color:#fff;background:linear-gradient(110deg,rgba(192,59,171,.26),rgba(114,57,139,.25));box-shadow:inset 0 0 0 1px rgba(232,129,213,.16)}
+  .mobile-more-icon{font-size:20px;line-height:14px;letter-spacing:1px}
+  .mobile-more-menu{position:absolute;right:0;bottom:calc(100% + 10px);width:min(250px,82vw);max-height:min(60vh,420px);overflow:auto;display:grid;gap:4px;padding:9px;border:1px solid rgba(228,202,238,.2);border-radius:18px;background:rgba(16,11,21,.97);box-shadow:0 18px 50px rgba(0,0,0,.42);backdrop-filter:blur(24px)}
+  .mobile-more-menu[hidden]{display:none}
+  .mobile-more-menu button{min-height:42px;padding:0 13px;border:0;border-radius:11px;background:transparent;color:#eee3f0;text-align:left;font-size:12px}
+  .mobile-more-menu button:hover,.mobile-more-menu button.active{background:rgba(191,67,170,.18);color:#ffe3fa}
+}
+@media(prefers-reduced-motion:reduce){.view.active,.view.active .section-card,.view.active .setting-card,.view.active .assistant-card,.view.active .orb-card,.data-row,.schedule-row,.memory-row,.app-dialog[open]{animation:none!important}}
+@media(max-width:680px){.app[data-motion="subtle"] .view.active{animation-duration:.2s}.app[data-motion="subtle"] .data-row,.app[data-motion="subtle"] .schedule-row,.app[data-motion="subtle"] .memory-row{animation-duration:.18s}.app[data-motion="off"] *,body[data-motion="off"] *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+.app[data-motion="subtle"] .view.active,.app[data-motion="subtle"] .view.active .section-card,.app[data-motion="subtle"] .view.active .setting-card{animation-duration:.2s!important}
+.app[data-motion="subtle"] .data-row,.app[data-motion="subtle"] .schedule-row,.app[data-motion="subtle"] .memory-row{animation-duration:.18s!important}
+.app[data-motion="reduced"] .view.active{animation:fade-rise .16s ease both!important}
+.app[data-motion="reduced"] .view.active .section-card,.app[data-motion="reduced"] .view.active .setting-card,.app[data-motion="reduced"] .view.active .assistant-card,.app[data-motion="reduced"] .view.active .orb-card{animation:none!important}
+.app[data-motion="reduced"] .data-row,.app[data-motion="reduced"] .schedule-row,.app[data-motion="reduced"] .memory-row{animation:none!important}
+.app[data-motion="off"] *,body[data-motion="off"] *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
