@@ -1,4 +1,4 @@
-const VERSION = "meetingmind-shell-v5";
+const VERSION = "meetingmind-shell-v6";
 const ASSETS = ["./", "./index.html", "./app.css", "./auth.css", "./app.js", "./auth.js", "./extras.js", "./manifest.json", "./icon-192.png", "./icon-512.png"];
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(VERSION).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting()));
