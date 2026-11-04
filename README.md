@@ -29,16 +29,16 @@ The sign-in page accepts an email and a six-digit code. Email auth/cloud sync is
 1. Create a Supabase project.
 2. Run [`supabase/schema.sql`](supabase/schema.sql) in its SQL Editor. It creates one JSONB row per authenticated user and enables row-level security so users can only read or update their own row.
 3. In Supabase **Authentication → Email Templates → Magic Link**, configure the message to include `{{ .Token }}` (not only `{{ .ConfirmationURL }}`) so the user receives a code. Example subject: `Your MeetingMind sign-in code is {{ .Token }}`; body: `<p>Your MeetingMind code is <strong>{{ .Token }}</strong>.</p>`.
-4. Add the deployed URL (and `http://localhost:4173`) to **Authentication → URL Configuration → Redirect URLs / Site URL** as applicable.
-5. On MeetingMind's sign-in page, expand **Connect email sign-in and cloud sync**, enter the project URL and its **publishable/anon key**, then save. Never enter a `service_role` key in the app.
+4. In **Authentication → URL Configuration**, set the Site URL to `https://codex26-dev.github.io/MeetingMind/` and add that URL to the allowed Redirect URLs. For local development, also add `http://localhost:4173`.
+5. In MeetingMind → **Workspace admin → Email sign-in & cross-device sync**, enter the project URL and its **publishable/anon key**, then choose **Save and test Supabase**. The same fields are available from the sign-in page when signed out. Never enter a `service_role` key in the app.
 
-The app sends the code through Supabase Auth's email OTP endpoint, verifies it with the email and code, then syncs the signed-in user's app data row. The key is a public client key and row-level security is required. See [Supabase email OTP](https://supabase.com/docs/guides/auth/auth-email-passwordless) and [email template variables](https://supabase.com/docs/guides/auth/auth-email-templates).
+The app sends the code through Supabase Auth's email OTP endpoint, verifies it with the email and code, then syncs the signed-in user's app data row. The publishable key is designed for browser use, while row-level security restricts each signed-in user to their own data. See [Supabase email OTP](https://supabase.com/docs/guides/auth/auth-email-passwordless), [email template variables](https://supabase.com/docs/guides/auth/auth-email-templates), and [row-level security](https://supabase.com/docs/guides/database/postgres/row-level-security).
 
 ## Live assistant brain and web research
 
 The React/Vite chat keeps local actions working without an AI account. Natural open-ended answers and web research need the included Node server and a server-side AI key. GitHub Pages cannot run that server or safely store a key.
 
-For a hosted backend, create a Render web service from this repository using [`render.yaml`](render.yaml). Set `OPENAI_API_KEY` as a private environment secret in Render. The blueprint turns on the Responses API web-search tool and allows the GitHub Pages origin. Once Render gives you an HTTPS service URL, open **Settings → App data, AI & installation** in MeetingMind and enter that URL. The badge should then show AI and web-search status. You can also use the Render URL itself as the app URL.
+For a hosted backend, create a Render web service from this repository using [`render.yaml`](render.yaml). Set `OPENAI_API_KEY` and a long random `APP_ACCESS_TOKEN` as private environment secrets in Render. The blueprint turns on the Responses API web-search tool, requires the app token for AI calls, and allows the GitHub Pages origin. In MeetingMind → **Workspace admin → AI assistant connection**, enter the Render HTTPS URL and the same app access token. The OpenAI key is never entered into MeetingMind. The admin badge reports when AI and web search are ready.
 
 For local development, run `npm run dev` for Vite and `npm run ai-server` in a second terminal. Copy `.env.example` to `.env` and add the key there. For Ollama, use `AI_PROVIDER=ollama`, `OLLAMA_URL`, and `AI_MODEL`; built-in web search is available through the OpenAI provider. Never paste a secret key into the app or commit it.
 
