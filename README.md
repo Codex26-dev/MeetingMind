@@ -49,7 +49,8 @@ The server forwards a user query and only the selected local context to the conf
 - Offline shell and installable app manifest with 192px and 512px icons.
 - Add, edit, search, and remove contacts; call a contact only after an explicit confirmation.
 - Manage meetings and export each as an `.ics` calendar event.
-- Create and complete tasks/reminders, view schedules, manage quotation drafts and payment follow-ups.
+- Create and complete tasks/reminders, view schedules, manage quotation drafts, record when a quote was sent, schedule and complete customer follow-ups, and record accepted/declined/waiting outcomes. Quotation files open a print dialog so they can be printed or saved as PDF; the app does not email them.
+- After a meeting ends, MeetingMind prompts for the outcome. Save meeting notes, create a follow-up task, and/or prepare a quotation draft from the meeting check-in.
 - Save, review, and delete user-approved memories; export/import a JSON backup or delete local/cloud app data.
 - Push-to-talk speech recognition and spoken replies when the browser/device provides those APIs and permissions.
 - Local command handling for schedule lookups, meeting context, reminders, contacts, voice/language preferences, quotes, and payment summaries.
