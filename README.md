@@ -4,13 +4,13 @@ A mobile-first, installable MeetingMind assistant. The app is local-first: meeti
 
 ## Run locally
 
-Install Node.js 20 or later, then run:
+Install Node.js 20 or later and install the locked dependencies:
 
 ```powershell
-npm start
+npm ci
 ```
 
-Open <http://localhost:4173>. The browser needs a secure context for install prompts, service workers, microphone, and notifications; `localhost` is supported. Do not open `index.html` with a `file://` URL when testing installation.
+For the React/Vite app during development, run `npm run dev` and `npm run ai-server` in two terminals. Open <http://localhost:5173>. For a production-style local server, run `npm run build` then `npm start` and open <http://localhost:4173>. Copy `.env.example` to `.env` to configure the AI provider. The browser needs a secure context for install prompts, service workers, microphone, and notifications; `localhost` is supported. Do not open `index.html` with a `file://` URL when testing installation.
 
 ## Install on a phone
 
@@ -34,14 +34,15 @@ The sign-in page accepts an email and a six-digit code. Email auth/cloud sync is
 
 The app sends the code through Supabase Auth's email OTP endpoint, verifies it with the email and code, then syncs the signed-in user's app data row. The key is a public client key and row-level security is required. See [Supabase email OTP](https://supabase.com/docs/guides/auth/auth-email-passwordless) and [email template variables](https://supabase.com/docs/guides/auth/auth-email-templates).
 
-## Optional live AI answers
+## Live assistant brain and web research
 
-The PWA's core assistant actions work locally without an AI key. For open-ended answers, run the included Node server and configure an AI provider on the server (the key never belongs in browser storage):
+The React/Vite chat keeps local actions working without an AI account. Natural open-ended answers and web research need the included Node server and a server-side AI key. GitHub Pages cannot run that server or safely store a key.
 
-1. Copy `.env.example` to `.env` and set `OPENAI_API_KEY` and optionally `AI_MODEL`, or select `AI_PROVIDER=ollama` and set `OLLAMA_URL` / `AI_MODEL` for a local Ollama server.
-2. Run `npm start` and open `http://localhost:4173`.
+For a hosted backend, create a Render web service from this repository using [`render.yaml`](render.yaml). Set `OPENAI_API_KEY` as a private environment secret in Render. The blueprint turns on the Responses API web-search tool and allows the GitHub Pages origin. Once Render gives you an HTTPS service URL, open **Settings → App data, AI & installation** in MeetingMind and enter that URL. The badge should then show AI and web-search status. You can also use the Render URL itself as the app URL.
 
-The server forwards a user query and only the selected local context to the configured model. The app shows whether AI is configured. GitHub Pages is static and does not run `server.mjs`; live AI needs a separately hosted Node server with HTTPS and server-side secrets. Do not add API keys to the repository or static client.
+For local development, run `npm run dev` for Vite and `npm run ai-server` in a second terminal. Copy `.env.example` to `.env` and add the key there. For Ollama, use `AI_PROVIDER=ollama`, `OLLAMA_URL`, and `AI_MODEL`; built-in web search is available through the OpenAI provider. Never paste a secret key into the app or commit it.
+
+The assistant uses a small set of relevant saved records plus recent conversation turns. It requests web search for explicit research/current-information prompts when the setting is on and shows clickable cited sources. Web search and model use can incur API charges. Don’t include confidential customer details in a web-search request.
 
 ## What works in this PWA
 
@@ -56,6 +57,8 @@ The server forwards a user query and only the selected local context to the conf
 - Configurable wake phrase is available in browsers that support on-device SpeechRecognition and have a local model for the selected language. It is opt-in, requires microphone permission, and runs only while the page stays visible. The page stops listening when hidden. Browsers without that API report why it cannot be enabled.
 - Workspace admin page lets the account owner edit the workspace name and display name. With the configured Supabase account, these app settings sync with the user's data row.
 - Voice Studio previews the actual installed system voice it maps to each style, lets you pick a device voice directly, and reports when a requested male/female voice is unavailable. Speech voices differ by browser and operating system.
+- React-powered chat uses Motion for message transitions and shadcn-style accessible controls; Tailwind CSS v4 supplies utilities without resetting the existing app styles.
+- Voice and text commands can navigate app sections, search saved records, summarize the saved day, find meeting notes/attendees, and create dated reminders from natural wording. Open-ended questions use the configured AI server; current-information requests can use web search.
 - Local command handling for schedule lookups, meeting context, reminders, contacts, voice/language preferences, quotes, and payment summaries.
 - Optional live model answers through the server-side AI endpoint.
 
@@ -66,7 +69,7 @@ The server forwards a user query and only the selected local context to the conf
 - Voice and transcription coverage is not guaranteed uniformly across Android, iOS, desktop browsers, or language packs. Test the selected language with the preview and microphone controls on the target device; some providers reject locale tags even when they appear in the list.
 - Calendar events are exported as `.ics`; there is no direct Google/Outlook calendar OAuth connection yet.
 - Notifications depend on browser permission and platform behavior. A locally scheduled timer is not a guaranteed background reminder if the browser or device stops the app.
-- Calls open the device's phone handler after confirmation. WhatsApp/email sending, payment processing, native Android/iOS background services, and native calendar integration are not connected. Workspace administration is per signed-in user/device data; team invitations, shared workspaces, and server-enforced member roles are not implemented.
+- Calls open the device's phone handler after confirmation. WhatsApp/email sending, payment processing, native Android/iOS background services, and direct native calendar access are not connected. To bring an existing calendar into MeetingMind, export an `.ics` file from your calendar and use **Calendar → Import calendar (.ics)**; Google/Outlook OAuth sync is not implemented. Workspace administration is per signed-in user/device data; team invitations, shared workspaces, and server-enforced member roles are not implemented.
 - Browser speech voices vary by operating system and language. The voice selector stores a preference; it does not bundle licensed voice packs.
 - Supabase session tokens and local app data are stored in browser storage. Use a device screen lock and do not use shared/public devices for business data. No voice recordings are stored.
 

@@ -1,0 +1,24 @@
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@theme {
+  --color-mm-night: #03110d;
+  --color-mm-glass: #0a261f;
+  --color-mm-mint: #55e6bb;
+}
+
+#chat { min-height: 0; }
+.mm-chat-list { display: flex; flex-direction: column; gap: 11px; }
+.mm-thinking { display: inline-flex; align-items: center; gap: 7px; color: #98b8ab; }
+.mm-thinking-dots { display: inline-flex; gap: 3px; }
+.mm-thinking-dots i { width: 4px; height: 4px; border-radius: 50%; background: #50e2b5; animation: mm-dot 1s ease-in-out infinite; }
+.mm-thinking-dots i:nth-child(2) { animation-delay: .15s; }
+.mm-thinking-dots i:nth-child(3) { animation-delay: .3s; }
+.answer-sources { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; padding-top: 8px; border-top: 1px solid rgba(91,220,179,.12); }
+.answer-sources small { flex-basis: 100%; color: #83a99a; font-size: 9px; }
+.answer-sources a { color: #70e4be; font-size: 10px; text-decoration: underline; text-underline-offset: 3px; }
+.mm-quick-root { display: flex; gap: 7px; flex-wrap: wrap; }
+.mm-quick-root [data-slot="button"] { border-radius: 999px; border: 1px solid rgba(73,211,168,.17); background: rgba(5,30,22,.56); color: #b0cec0; padding: 7px 11px; font-size: 10px; backdrop-filter: blur(12px); transition: all .22s ease; }
+.mm-quick-root [data-slot="button"]:hover { color: #ddfff2; border-color: rgba(73,225,178,.5); background: rgba(8,62,45,.7); transform: translateY(-2px); }
+@keyframes mm-dot { 50% { opacity: .28; transform: translateY(-2px); } }
+@media (prefers-reduced-motion: reduce) { .mm-thinking-dots i { animation: none; } }

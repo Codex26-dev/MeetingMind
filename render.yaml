@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: meetingmind-ai
+    runtime: node
+    plan: free
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: HOST
+        value: 0.0.0.0
+      - key: VITE_BASE
+        value: /
+      - key: AI_PROVIDER
+        value: openai
+      - key: AI_MODEL
+        value: gpt-4.1-mini
+      - key: WEB_SEARCH_ENABLED
+        value: "true"
+      - key: CORS_ORIGINS
+        value: https://codex26-dev.github.io
+      - key: OPENAI_API_KEY
+        sync: false
