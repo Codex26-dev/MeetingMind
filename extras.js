@@ -121,7 +121,7 @@
     $('#later', ov).onclick = () => { m.asked = false; M.save(); ov.remove(); };
     $('#go', ov).onclick = () => {
       const o = $('#o', ov).value, nt = $('#nt', ov).value.trim();
-      m.outcome = o; m.outcomeNotes = nt;
+      m.outcome = o; m.outcomeNotes = nt; m.completedAt = new Date().toISOString();
       if (nt) db().memories.push({ id: M.id(), title: m.customer || m.title, body: nt, source: 'Meeting outcome · ' + M.fmtDate(m.date) });
       if (o.startsWith('Needs')) db().tasks.push({ id: M.id(), title: `Follow up with ${m.customer || m.title}`, due: M.shiftDay(2), done: false, notes: nt || m.title });
       M.save(); M.renderAll(); ov.remove();
