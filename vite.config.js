@@ -9,7 +9,7 @@ function keepLegacyAppAssets() {
     apply: 'build',
     closeBundle() {
       mkdirSync('dist', { recursive: true });
-      for (const file of ['app.js', 'extras.js', 'auth.js', 'sw.js', 'manifest.json', 'icon-192.png', 'icon-512.png']) {
+      for (const file of ['app.js', 'app.css', 'auth.css', 'extras.js', 'auth.js', 'sw.js', 'manifest.json', 'icon-192.png', 'icon-512.png']) {
         copyFileSync(file, `dist/${file}`);
       }
     },
