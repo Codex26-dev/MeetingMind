@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 170" role="img" aria-label="MeetingMind">
+  <defs>
+    <linearGradient id="teal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#12b3a2"/><stop offset="1" stop-color="#2f9fd6"/></linearGradient>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#3f8fe0"/><stop offset="1" stop-color="#6a4de0"/></linearGradient>
+    <linearGradient id="lens" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#12b3a2"/><stop offset="1" stop-color="#6a4de0"/></linearGradient>
+    <clipPath id="lensClip"><circle cx="116" cy="85" r="52"/></clipPath>
+  </defs>
+  <circle cx="64" cy="85" r="52" fill="none" stroke="url(#teal)" stroke-width="7"/>
+  <circle cx="116" cy="85" r="52" fill="none" stroke="url(#blue)" stroke-width="7"/>
+  <circle cx="116" cy="85" r="52" fill="url(#lens)" clip-path="url(#lensClip)"/>
+  <path d="M90 56c2 20 8 26 28 29-20 3-26 9-28 29-2-20-8-26-28-29 20-3 26-9 28-29Z" fill="#fff"/>
+  <text x="198" y="105" font-family="Inter,Helvetica,Arial,sans-serif" font-weight="600" font-size="68" letter-spacing="-2" fill="#f4f7fa">MeetingMind</text>
+</svg>
