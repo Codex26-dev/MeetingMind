@@ -1,5 +1,5 @@
-const VERSION = "meetingmind-shell-v15";
-const ASSETS = ["./", "./index.html", "./app.css", "./auth.css", "./app.js", "./auth.js", "./extras.js", "./manifest.json", "./icon-192.png", "./icon-512.png", "./branding/meetingmind-logo.svg", "./branding/meetingmind-logo-dark.svg", "./branding/meetingmind-mark.svg"];
+const VERSION = "meetingmind-shell-v16";
+const ASSETS = ["./", "./index.html", "./app.css", "./auth.css", "./app.js", "./auth.js", "./extras.js", "./manifest.json", "./branding/meetingmind-icon-192.png", "./branding/meetingmind-icon-512.png", "./branding/meetingmind-logo.svg", "./branding/meetingmind-logo-dark.svg", "./branding/meetingmind-mark.svg"];
 self.addEventListener("install", event => {
   event.waitUntil(caches.open(VERSION).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting()));
 });
